@@ -14,7 +14,6 @@ export default function Post({ postData }) {
       <article>
         <h1 className={utilStyles.headingX1}>{ postData.title }</h1>
         <div className={utilStyles.lightText}>
-          <Date dateString={ postData.date } />
         </div>
         <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
       </article>
@@ -23,7 +22,7 @@ export default function Post({ postData }) {
 }
 
 export async function getStaticPaths() {
-  const paths = getAllPostIds()
+  const paths = await getAllPostIds()
   return {
     paths,
     fallback: false
@@ -34,7 +33,7 @@ export async function getStaticProps({ params }) {
   const postData = await getPostData(params.id)
   return {
     props: {
-      postData
+      postData,
     }
   }
 }
